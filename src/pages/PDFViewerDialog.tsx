@@ -21,7 +21,7 @@ export default function PDFViewerDialog({ isOpen, onClose, filePath }: PDFViewer
   useEffect(() => {
     if (filePath) {
       // build full URL (adjust backend host if needed)
-      const fullUrl = `http://localhost:5000/${filePath.replace(/\\/g, "/")}`;
+      const fullUrl = `https://defref-assignment.vercel.app/${filePath.replace(/\\/g, "/")}`;
       setPdfUrl(fullUrl);
     }
   }, [filePath]);
