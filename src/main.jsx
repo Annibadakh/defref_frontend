@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Toaster } from 'react-hot-toast'
-import App from './App.tsx'
-import { AuthProvider } from './contexts/AuthContext.tsx'
+import App from './App'
+import { AuthProvider } from './contexts/AuthContext'
 import './index.css'
 
 // Configure React Query
@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
   },
 })
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -35,7 +35,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 borderRadius: '8px',
                 fontSize: '14px',
                 padding: '12px 16px',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                boxShadow:
+                  '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
               },
               success: {
                 iconTheme: {
@@ -54,5 +55,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
