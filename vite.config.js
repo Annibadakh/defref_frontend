@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,8 +14,8 @@ export default defineConfig({
         target: 'https://defref-assignment.vercel.app',
         changeOrigin: true,
         secure: false,
-      }
-    }
+      },
+    },
   },
   build: {
     outDir: 'dist',
@@ -26,8 +26,8 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           pdf: ['react-pdf', 'pdfjs-dist'],
           fabric: ['fabric'],
-        }
-      }
-    }
-  }
-})
+        },
+      },
+    },
+  },
+});
