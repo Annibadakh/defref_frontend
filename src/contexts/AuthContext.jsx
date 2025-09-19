@@ -1,35 +1,11 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { authAPI } from '../services/api';
 import toast from 'react-hot-toast';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  avatar?: string;
-  createdAt: string;
-  lastLogin?: string;
-}
+const AuthContext = createContext(undefined);
 
-interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
-  updateProfile: (data: Partial<User>) => Promise<void>;
-  updatePassword: (currentPassword: string, newPassword: string) => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Check if user is logged in on app start
@@ -57,34 +33,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const login = async (email: string, password: string) => {
+  const login = async (email, password) => {
     try {
       const response = await authAPI.login({ email, password });
-      
       if (response.data.success) {
         const { token, user } = response.data;
         localStorage.setItem('token', token);
         setUser(user);
         toast.success('Login successful!');
       }
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Login failed';
       toast.error(message);
       throw error;
     }
   };
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name, email, password) => {
     try {
       const response = await authAPI.register({ name, email, password });
-      
       if (response.data.success) {
         const { token, user } = response.data;
         localStorage.setItem('token', token);
         setUser(user);
         toast.success('Account created successfully!');
       }
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Registration failed';
       toast.error(message);
       throw error;
@@ -103,32 +77,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const updateProfile = async (data: Partial<User>) => {
+  const updateProfile = async (data) => {
     try {
       const response = await authAPI.updateProfile(data);
-      
       if (response.data.success) {
         setUser(response.data.user);
         toast.success('Profile updated successfully!');
       }
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Failed to update profile';
       toast.error(message);
       throw error;
     }
   };
 
-  const updatePassword = async (currentPassword: string, newPassword: string) => {
+  const updatePassword = async (currentPassword, newPassword) => {
     try {
       const response = await authAPI.updatePassword({ currentPassword, newPassword });
-      
       if (response.data.success) {
         const { token, user } = response.data;
         localStorage.setItem('token', token);
         setUser(user);
         toast.success('Password updated successfully!');
       }
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Failed to update password';
       toast.error(message);
       throw error;
@@ -145,11 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     updatePassword,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

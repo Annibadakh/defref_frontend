@@ -1,4 +1,4 @@
-// src/pages/PDFViewerDialog.tsx
+// src/pages/PDFViewerDialog.jsx
 import { useEffect, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -6,17 +6,11 @@ import { X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-interface PDFViewerDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  filePath: string;  // 👈 pass the relative path like "uploads/pdfs/xxx.pdf"
-}
-
-export default function PDFViewerDialog({ isOpen, onClose, filePath }: PDFViewerDialogProps) {
-  const [numPages, setNumPages] = useState<number>(0);
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [scale, setScale] = useState<number>(1.0);
-  const [pdfUrl, setPdfUrl] = useState<string>("");
+export default function PDFViewerDialog({ isOpen, onClose, filePath }) {
+  const [numPages, setNumPages] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [scale, setScale] = useState(1.0);
+  const [pdfUrl, setPdfUrl] = useState("");
 
   useEffect(() => {
     if (filePath) {

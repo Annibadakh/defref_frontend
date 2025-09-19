@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { User, Mail, Calendar } from 'lucide-react';
 
-const ProfilePage: React.FC = () => {
+const ProfilePage = () => {
   const { user, updateProfile } = useAuth();
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,14 +13,14 @@ const ProfilePage: React.FC = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
       await updateProfile(formData);
       setSuccess('Profile updated successfully');
       setEditing(false);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.response?.data?.message || 'Update failed');
     } finally {
       setLoading(false);

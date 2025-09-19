@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import api from '../services/api';
 import PDFViewerDialog from './PDFViewerDialog';
 
-const PDFViewerPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [pdf, setPdf] = useState<any>(null);
+const PDFViewerPage = () => {
+  const { id } = useParams();
+  const [pdf, setPdf] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [viewerOpen, setViewerOpen] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const PDFViewerPage: React.FC = () => {
         const res = await api.get(`/pdfs/${id}`);
         console.log(res.data);
         setPdf(res.data.pdf);
-      } catch (err: any) {
+      } catch (err) {
         setError(err.response?.data?.message || 'Failed to load PDF');
       } finally {
         setLoading(false);
@@ -43,7 +43,7 @@ const PDFViewerPage: React.FC = () => {
           <p className="text-gray-500">No annotations yet</p>
         ) : (
           <ul className="space-y-2">
-            {pdf.annotations.map((a: any) => (
+            {pdf.annotations.map((a) => (
               <li key={a._id} className="p-3 border rounded bg-gray-50">
                 <p className="text-sm text-gray-800">{a.content}</p>
                 <p className="text-xs text-gray-400">By {a.user?.name || 'Unknown'}</p>

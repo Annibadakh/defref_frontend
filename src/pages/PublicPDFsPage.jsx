@@ -3,12 +3,12 @@ import { FileText, Users, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const PublicPDFsPage: React.FC = () => {
-  const [pdfs, setPdfs] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [search, setSearch] = useState<string>('');
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
+const PublicPDFsPage = () => {
+  const [pdfs, setPdfs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchPublicPDFs = async (searchQuery = '', pageNum = 1) => {
     try {
@@ -95,11 +95,11 @@ const PublicPDFsPage: React.FC = () => {
                       <span className="flex items-center gap-1">
                         <Eye className="h-4 w-4" /> {pdf.accessCount || 0}
                         <Link
-                                              to={`/pdf/${pdf.id}`}
-                                              className="text-primary-600 hover:text-primary-800 font-medium text-sm"
-                                            >
-                                              View
-                                            </Link>
+                          to={`/pdf/${pdf.id}`}
+                          className="text-primary-600 hover:text-primary-800 font-medium text-sm"
+                        >
+                          View
+                        </Link>
                       </span>
                     </div>
                   </div>

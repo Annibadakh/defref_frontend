@@ -1,15 +1,15 @@
+// src/pages/DashboardPage.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Upload, Plus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
 import api from '../services/api';
 
-const DashboardPage: React.FC = () => {
+const DashboardPage = () => {
   const { user } = useAuth();
-  const [pdfs, setPdfs] = useState<any[]>([]);
+  const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPdfs = async () => {
@@ -23,7 +23,7 @@ const DashboardPage: React.FC = () => {
         });
         console.log(res.data);
         setPdfs(res.data.pdfs);
-      } catch (err: any) {
+      } catch (err) {
         setError(err.response?.data?.message || 'Failed to load PDFs');
       } finally {
         setLoading(false);

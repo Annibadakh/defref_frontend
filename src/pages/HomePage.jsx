@@ -1,9 +1,10 @@
+// src/pages/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Upload, Users, Zap } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const { user } = useAuth();
 
   return (
@@ -25,14 +26,14 @@ const HomePage: React.FC = () => {
                 <>
                   <Link
                     to="/upload"
-                    className="btn-primary text-lg px-8 py-3"
+                    className="btn-primary text-lg px-8 py-3 flex items-center justify-center"
                   >
                     <Upload className="h-5 w-5 mr-2" />
                     Upload PDF
                   </Link>
                   <Link
                     to="/dashboard"
-                    className="btn-secondary text-lg px-8 py-3"
+                    className="btn-secondary text-lg px-8 py-3 flex items-center justify-center"
                   >
                     <FileText className="h-5 w-5 mr-2" />
                     My Documents
@@ -48,7 +49,7 @@ const HomePage: React.FC = () => {
                   </Link>
                   <Link
                     to="/public"
-                    className="btn-secondary text-lg px-8 py-3"
+                    className="btn-secondary text-lg px-8 py-3 flex items-center justify-center"
                   >
                     <Users className="h-5 w-5 mr-2" />
                     Browse Public PDFs
